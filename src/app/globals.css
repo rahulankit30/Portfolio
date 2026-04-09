@@ -1,0 +1,208 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand colors */
+  --color-bg-base: #08080f;
+  --color-bg-surface: #0f0f1a;
+  --color-bg-card: #141422;
+  --color-bg-card-hover: #1a1a2e;
+  --color-accent: #6366f1;
+  --color-accent-light: #818cf8;
+  --color-accent-dim: #6366f133;
+  --color-purple: #8b5cf6;
+  --color-pink: #ec4899;
+  --color-green: #10b981;
+  --color-amber: #f59e0b;
+
+  /* Text */
+  --color-text-primary: #f0f0f5;
+  --color-text-secondary: #9898b0;
+  --color-text-muted: #5c5c78;
+
+  /* Borders */
+  --color-border: #ffffff14;
+  --color-border-strong: #ffffff22;
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ── Base reset ─────────────────────────────── */
+:root {
+  --gradient-accent: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  --gradient-glow: radial-gradient(ellipse at center, #6366f130 0%, transparent 70%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #08080f;
+  color: #f0f0f5;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── Selection ─────────────────────────────── */
+::selection {
+  background-color: #6366f140;
+  color: #f0f0f5;
+}
+
+/* ── Scrollbar ─────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f0f1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #6366f150;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f180;
+}
+
+/* ── Utility classes ─────────────────────────── */
+.gradient-text {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-accent {
+  box-shadow: 0 0 40px #6366f130, 0 0 80px #6366f115;
+}
+
+.glow-accent-sm {
+  box-shadow: 0 0 20px #6366f125;
+}
+
+.card-glass {
+  background: rgba(20, 20, 34, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+}
+
+/* ── Noise texture overlay ─────────────────── */
+.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ── Animated gradient background ────────────── */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-gradient {
+  background: linear-gradient(-45deg, #08080f, #0f0820, #08080f, #0d0d1f);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* ── Floating particles ───────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  33% { transform: translateY(-20px) translateX(10px); }
+  66% { transform: translateY(10px) translateX(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+/* ── Hero orbs ────────────────────────────── */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* ── Skill chip hover glow ─────────────────── */
+.skill-chip {
+  transition: all 0.2s ease;
+}
+.skill-chip:hover {
+  border-color: #6366f160;
+  background-color: #6366f115;
+  box-shadow: 0 0 16px #6366f120;
+  transform: translateY(-1px);
+}
+
+/* ── Timeline connector ────────────────────── */
+.timeline-connector {
+  background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 50%, #6366f140 100%);
+}
+
+/* ── Form inputs ────────────────────────────── */
+.form-input {
+  background: rgba(20, 20, 34, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f0f0f5;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input:focus {
+  outline: none;
+  border-color: #6366f160;
+  box-shadow: 0 0 0 3px #6366f115;
+}
+.form-input::placeholder {
+  color: #5c5c78;
+}
+
+/* ── Command palette backdrop ─────────────── */
+.command-backdrop {
+  background: rgba(8, 8, 15, 0.85);
+  backdrop-filter: blur(16px);
+}
+
+/* ── Project card ─────────────────────────── */
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(99, 102, 241, 0.08);
+}
+
+/* ── Active nav link ──────────────────────── */
+.nav-link-active {
+  color: #818cf8;
+}
+.nav-link-active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  border-radius: 1px;
+}
